@@ -27,7 +27,7 @@ function fmt(x) { return (Math.round(x * 10) / 10).toFixed(1).replace(".", ",");
 
 function recipe() {
   var p = PRODUCTS[prod], d = {};
-  if (mode === "blend") d = BLENDS[idx][1]; else d[ESENCIAS[idx]] = 100;
+  if (mode === "blend") d = BLENDS[idx][1]; else d["Esencia a elección"] = 100;
   var V = p.ml * qty, total = V * p.es, items = [];
   for (var k in d) items.push([k, total * d[k] / 100]);
   items.push(["DPG", V * p.dpg]);
@@ -52,9 +52,10 @@ function render() {
 }
 
 function fillSelect() {
-  var s = $("item"), list = mode === "blend" ? BLENDS.map(function (b) { return b[0]; }) : ESENCIAS;
+  var s = $("item"), list = BLENDS.map(function (b) { return b[0]; });
   s.innerHTML = "";
   list.forEach(function (n, i) { var o = document.createElement("option"); o.value = i; o.textContent = n; s.appendChild(o); });
+  s.style.display = mode === "blend" ? "" : "none";
   idx = 0;
 }
 
@@ -84,8 +85,8 @@ function init() {
     var t = e.target;
     if (t.dataset.k !== undefined) { checked[t.dataset.k] = t.checked; render(); }
   };
-    $("copyall").onclick = function () {
-    var r = recipe(), name = mode === "blend" ? BLENDS[idx][0] : ESENCIAS[idx];
+      $("copyall").onclick = function () {
+    var r = recipe(), name = mode === "blend" ? BLENDS[idx][0] : "Aroma individual";
     copy(name + " - " + prod + " x" + qty + " (" + r.p.ml + " ml)\n" + r.items.map(function (i) { return i[0] + ": " + fmt(i[1]) + " ml"; }).join("\n"));
   };
   $("mm").onclick = function () { if (qty > 1) { qty--; render(); } };
