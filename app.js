@@ -18,19 +18,21 @@ var BLENDS = [
   ["10. Tropical suave",{"Mango maracuyá":55,"Coco vainilla":20,"Verbena":25}]
 ];
 
+// Densidad (g por ml) para pasar de gramos a ml. Ajustá si tu alcohol es distinto.
+var DENS = {esencia: .95, dpg: 1.03, alcohol: .81, agua: 1};
 // ---- Estado ----
 var prod = "Difusor", mode = "blend", idx = 0, checked = {}, qty = 1;
 var $ = function (id) { return document.getElementById(id); };
-function fmt(x) { return (Math.round(x * 100) / 100).toFixed(2).replace(".", ","); }
+function fmt(x) { return (Math.round(x * 10) / 10).toFixed(1).replace(".", ","); }
 
 function recipe() {
   var p = PRODUCTS[prod], d = {};
   if (mode === "blend") d = BLENDS[idx][1]; else d[ESENCIAS[idx]] = 100;
   var L = p.lote * qty, total = L * p.es, items = [];
-  for (var k in d) items.push([k, total * d[k] / 100]);
-  items.push(["DPG", L * p.dpg]);
-  items.push(["Alcohol", L * (1 - p.es - p.dpg - p.agua)]);
-  if (p.agua > 0) items.push(["Agua destilada", L * p.agua]);
+  for (var k in d) items.push([k, total * d[k] / 100 / DENS.esencia]);
+  items.push(["DPG", L * p.dpg / DENS.dpg]);
+  items.push(["Alcohol", L * (1 - p.es - p.dpg - p.agua) / DENS.alcohol]);
+  if (p.agua > 0) items.push(["Agua destilada", L * p.agua / DENS.agua]);
   return {items: items, p: p, d: d};
 }
 
@@ -40,12 +42,12 @@ function render() {
     sum += it[1];
     h += '<div class="row' + (checked[it[0]] ? " done" : "") + '"><input type="checkbox" data-k="' + it[0] + '"' + (checked[it[0]] ? " checked" : "") + '><span class="n">' + it[0] + '</span><span class="g">' + fmt(it[1]) + '</span><button class="cp" data-c="' + i + '">Copiar</button></div>';
   });
-  h += '<div class="tot"><span>Total lote</span><span>' + fmt(sum) + " g</span></div>";
+  h += '<div class="tot"><span>Total lote</span><span>' + fmt(sum) + " ml</span></div>";
   $("list").innerHTML = h;
   var alc = Math.round((1 - r.p.es - r.p.dpg - r.p.agua) * 100);
   $("formula").textContent = "Esencia " + Math.round(r.p.es * 100) + " % · DPG " + Math.round(r.p.dpg * 100) + " % · Alcohol " + alc + " %" + (r.p.agua > 0 ? " · Agua " + Math.round(r.p.agua * 100) + " %" : "");
-  $("envase").textContent = qty + " × envase " + r.p.ml + " ml · Lote total " + (r.p.lote * qty) + " g";
-$("nn").textContent = qty;3
+  $("envase").textContent = qty + " × envase " + r.p.ml + " ml · Total " + fmt(sum) + " ml";
+  $("nn").textContent = qty;
   $("iteminfo").textContent = mode === "blend" ? Object.keys(r.d).map(function (k) { return k + " " + r.d[k] + " %"; }).join(" + ") : "Esencia pura, sin mezclar";
 }
 
@@ -83,9 +85,9 @@ function init() {
     if (t.dataset.k !== undefined) { checked[t.dataset.k] = t.checked; render(); }
     if (t.dataset.c !== undefined) copy(fmt(recipe().items[+t.dataset.c][1]));
   };
-  $("copyall").onclick = function () {
+    $("copyall").onclick = function () {
     var r = recipe(), name = mode === "blend" ? BLENDS[idx][0] : ESENCIAS[idx];
-    copy(name + " - " + prod + " x" + qty + " (" + r.p.ml + " ml)\n" + r.items.map(function (i) { return i[0] + ": " + fmt(i[1]) + " g"; }).join("\n"));
+    copy(name + " - " + prod + " x" + qty + " (" + r.p.ml + " ml)\n" + r.items.map(function (i) { return i[0] + ": " + fmt(i[1]) + " ml"; }).join("\n"));
   };
   $("mm").onclick = function () { if (qty > 1) { qty--; render(); } };
   $("mp").onclick = function () { if (qty < 99) { qty++; render(); } };
