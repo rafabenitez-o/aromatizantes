@@ -28,11 +28,11 @@ function fmt(x) { return (Math.round(x * 10) / 10).toFixed(1).replace(".", ",");
 function recipe() {
   var p = PRODUCTS[prod], d = {};
   if (mode === "blend") d = BLENDS[idx][1]; else d[ESENCIAS[idx]] = 100;
-  var L = p.lote * qty, total = L * p.es, items = [];
-  for (var k in d) items.push([k, total * d[k] / 100 / DENS.esencia]);
-  items.push(["DPG", L * p.dpg / DENS.dpg]);
-  items.push(["Alcohol", L * (1 - p.es - p.dpg - p.agua) / DENS.alcohol]);
-  if (p.agua > 0) items.push(["Agua destilada", L * p.agua / DENS.agua]);
+  var V = p.ml * qty, total = V * p.es, items = [];
+  for (var k in d) items.push([k, total * d[k] / 100]);
+  items.push(["DPG", V * p.dpg]);
+  items.push(["Alcohol", V * (1 - p.es - p.dpg - p.agua)]);
+  if (p.agua > 0) items.push(["Agua destilada", V * p.agua]);
   return {items: items, p: p, d: d};
 }
 
