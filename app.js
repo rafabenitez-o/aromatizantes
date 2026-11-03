@@ -40,7 +40,7 @@ function render() {
   var r = recipe(), sum = 0, h = "";
   r.items.forEach(function (it, i) {
     sum += it[1];
-    h += '<div class="row' + (checked[it[0]] ? " done" : "") + '"><input type="checkbox" data-k="' + it[0] + '"' + (checked[it[0]] ? " checked" : "") + '><span class="n">' + it[0] + '</span><span class="g">' + fmt(it[1]) + '</span><button class="cp" data-c="' + i + '">Copiar</button></div>';
+    h += '<div class="row' + (checked[it[0]] ? " done" : "") + '"><input type="checkbox" data-k="' + it[0] + '"' + (checked[it[0]] ? " checked" : "") + '><span class="n">' + it[0] + '</span><span class="g">' + fmt(it[1]) + '</span></div>';
   });
   h += '<div class="tot"><span>Total lote</span><span>' + fmt(sum) + " ml</span></div>";
   $("list").innerHTML = h;
@@ -80,10 +80,9 @@ function init() {
     b.onclick = function () { mode = b.dataset.m; checked = {}; [].forEach.call($("mode").children, function (x) { x.className = x === b ? "on" : ""; }); fillSelect(); render(); };
   });
   $("item").onchange = function () { idx = +this.value; checked = {}; render(); };
-  $("list").onclick = function (e) {
+    $("list").onclick = function (e) {
     var t = e.target;
     if (t.dataset.k !== undefined) { checked[t.dataset.k] = t.checked; render(); }
-    if (t.dataset.c !== undefined) copy(fmt(recipe().items[+t.dataset.c][1]));
   };
     $("copyall").onclick = function () {
     var r = recipe(), name = mode === "blend" ? BLENDS[idx][0] : ESENCIAS[idx];
