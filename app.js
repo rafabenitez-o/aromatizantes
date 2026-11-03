@@ -19,18 +19,18 @@ var BLENDS = [
 ];
 
 // ---- Estado ----
-var prod = "Difusor", mode = "blend", idx = 0, checked = {};
+var prod = "Difusor", mode = "blend", idx = 0, checked = {}, qty = 1;
 var $ = function (id) { return document.getElementById(id); };
 function fmt(x) { return (Math.round(x * 100) / 100).toFixed(2).replace(".", ","); }
 
 function recipe() {
   var p = PRODUCTS[prod], d = {};
   if (mode === "blend") d = BLENDS[idx][1]; else d[ESENCIAS[idx]] = 100;
-  var total = p.lote * p.es, items = [];
+  var L = p.lote * qty, total = L * p.es, items = [];
   for (var k in d) items.push([k, total * d[k] / 100]);
-  items.push(["DPG", p.lote * p.dpg]);
-  items.push(["Alcohol", p.lote * (1 - p.es - p.dpg - p.agua)]);
-  if (p.agua > 0) items.push(["Agua destilada", p.lote * p.agua]);
+  items.push(["DPG", L * p.dpg]);
+  items.push(["Alcohol", L * (1 - p.es - p.dpg - p.agua)]);
+  if (p.agua > 0) items.push(["Agua destilada", L * p.agua]);
   return {items: items, p: p, d: d};
 }
 
@@ -44,7 +44,8 @@ function render() {
   $("list").innerHTML = h;
   var alc = Math.round((1 - r.p.es - r.p.dpg - r.p.agua) * 100);
   $("formula").textContent = "Esencia " + Math.round(r.p.es * 100) + " % · DPG " + Math.round(r.p.dpg * 100) + " % · Alcohol " + alc + " %" + (r.p.agua > 0 ? " · Agua " + Math.round(r.p.agua * 100) + " %" : "");
-  $("envase").textContent = "Envase " + r.p.ml + " ml · Lote " + r.p.lote + " g";
+  $("envase").textContent = qty + " × envase " + r.p.ml + " ml · Lote total " + (r.p.lote * qty) + " g";
+$("nn").textContent = qty;3
   $("iteminfo").textContent = mode === "blend" ? Object.keys(r.d).map(function (k) { return k + " " + r.d[k] + " %"; }).join(" + ") : "Esencia pura, sin mezclar";
 }
 
@@ -84,8 +85,10 @@ function init() {
   };
   $("copyall").onclick = function () {
     var r = recipe(), name = mode === "blend" ? BLENDS[idx][0] : ESENCIAS[idx];
-    copy(name + " - " + prod + " (" + r.p.ml + " ml)\n" + r.items.map(function (i) { return i[0] + ": " + fmt(i[1]) + " g"; }).join("\n"));
+    copy(name + " - " + prod + " x" + qty + " (" + r.p.ml + " ml)\n" + r.items.map(function (i) { return i[0] + ": " + fmt(i[1]) + " g"; }).join("\n"));
   };
+  $("mm").onclick = function () { if (qty > 1) { qty--; render(); } };
+  $("mp").onclick = function () { if (qty < 99) { qty++; render(); } };
   fillSelect(); render();
 }
 init();
