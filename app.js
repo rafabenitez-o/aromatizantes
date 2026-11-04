@@ -6,12 +6,15 @@ var PRODUCTS = {
 };
 var ESENCIAS = ["Verbena","Lemon grass","Flores blancas","Magnolia","Jazmín azahares","Gardenia","Coco vainilla","Mango maracuyá","Wanama","Frutos rojos"];
 var BLENDS = [
+  // CITRICOS
   ["1c. Cítrico herbal",{"Verbena":75,"Lemon grass":25}],
   ["2c. Fresco floral",{"Verbena":50,"Flores blancas":30,"Magnolia":20}],
   ["3c. Tropical cítrico",{"Mango maracuyá":50,"Lemon grass":30,"Verbena":20}],
+  // FLORALES
   ["4f. Blanco spa",{"Flores blancas":40,"Jazmín azahares":30,"Gardenia":20,"Verbena":10}],
   ["5f. Floral nocturno",{"Gardenia":55,"Jazmín azahares":30,"Coco vainilla":15}],
   ["6f. Bouquet romántico",{"Magnolia":40,"Frutos rojos":30,"Gardenia":20,"Flores blancas":10}],
+  // DULCES
   ["7d. Tropical suave",{"Mango maracuyá":55,"Coco vainilla":20,"Verbena":25}],
   ["8d. Vainilla coco dulce",{"Coco vainilla":70,"Mango maracuyá":20,"Jazmín azahares":10}],
   ["9d. Frutos rojos cremosos",{"Frutos rojos":75,"Coco vainilla":25}],
