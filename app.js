@@ -13,10 +13,10 @@ var BLENDS = [
   // FLORALES
   ["4f. Blanco spa",{"Flores blancas":40,"Jazmín azahares":30,"Gardenia":20,"Verbena":10}],
   ["5f. Floral nocturno",{"Gardenia":55,"Jazmín azahares":30,"Coco vainilla":15}],
-  ["6f. Bouquet romántico",{"Magnolia":40,"Frutos rojos":30,"Gardenia":20,"Flores blancas":10}],
+  ["6f. Floral romántico",{"Magnolia":40,"Frutos rojos":30,"Gardenia":20,"Flores blancas":10}],
+  ["7f. Jardín blanco",{"Flores blancas":60,"Magnolia":40}],
   // DULCES
-  ["7d. Tropical suave",{"Mango maracuyá":55,"Coco vainilla":20,"Verbena":25}],
-  ["8d. Vainilla coco dulce",{"Coco vainilla":70,"Mango maracuyá":20,"Jazmín azahares":10}],
+  ["8d. Tropical suave",{"Mango maracuyá":55,"Coco vainilla":20,"Verbena":25}],
   ["9d. Frutos rojos cremosos",{"Frutos rojos":75,"Coco vainilla":25}],
   ["10d. Frutal tropical",{"Mango maracuyá":60,"Wanama":40}]
 ];
