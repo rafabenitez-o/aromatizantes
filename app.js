@@ -6,16 +6,16 @@ var PRODUCTS = {
 };
 var ESENCIAS = ["Verbena","Lemon grass","Flores blancas","Magnolia","Jazmín azahares","Gardenia","Coco vainilla","Mango maracuyá","Wanama","Frutos rojos"];
 var BLENDS = [
-  ["1. Cítrico herbal",{"Verbena":75,"Lemon grass":25}],
-  ["2. Jardín blanco",{"Flores blancas":60,"Magnolia":40}],
-  ["3. Azahar y flores",{"Jazmín azahares":50,"Flores blancas":50}],
-  ["4. Floral cremoso",{"Gardenia":80,"Coco vainilla":20}],
-  ["5. Frutal tropical",{"Mango maracuyá":60,"Wanama":40}],
-  ["6. Frutos rojos cremosos",{"Frutos rojos":75,"Coco vainilla":25}],
-  ["7. Fresco floral",{"Verbena":50,"Flores blancas":30,"Magnolia":20}],
-  ["8. Floral nocturno",{"Gardenia":55,"Jazmín azahares":30,"Coco vainilla":15}],
-  ["9. Frutal con flor",{"Wanama":50,"Magnolia":20,"Mango maracuyá":30}],
-  ["10. Tropical suave",{"Mango maracuyá":55,"Coco vainilla":20,"Verbena":25}]
+  ["1c. Cítrico herbal",{"Verbena":75,"Lemon grass":25}],
+  ["2c. Fresco floral",{"Verbena":50,"Flores blancas":30,"Magnolia":20}],
+  ["3c. Tropical cítrico",{"Mango maracuyá":50,"Lemon grass":30,"Verbena":20}],
+  ["4f. Blanco spa",{"Flores blancas":40,"Jazmín azahares":30,"Gardenia":20,"Verbena":10}],
+  ["5f. Floral nocturno",{"Gardenia":55,"Jazmín azahares":30,"Coco vainilla":15}],
+  ["6f. Bouquet romántico",{"Magnolia":40,"Frutos rojos":30,"Gardenia":20,"Flores blancas":10}],
+  ["7d. Tropical suave",{"Mango maracuyá":55,"Coco vainilla":20,"Verbena":25}],
+  ["8d. Vainilla coco dulce",{"Coco vainilla":70,"Mango maracuyá":20,"Jazmín azahares":10}],
+  ["9d. Frutos rojos cremosos",{"Frutos rojos":75,"Coco vainilla":25}],
+  ["10d. Frutal tropical",{"Mango maracuyá":60,"Wanama":40}]
 ];
 
 // Densidad (g por ml) para pasar de gramos a ml. Ajustá si tu alcohol es distinto.
